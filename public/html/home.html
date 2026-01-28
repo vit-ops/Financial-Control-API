@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial-Control</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="logo">
+                <div class="currency-symbol">$</div>
+                <span class="logo-text">FINANCIAL.CONTROL</span>
+            </div>
+            <div class="nav-links">
+                <a href="/api" class="link-item">API</a>
+                <button class="link-item btn-ghost" onclick="openModal('login')">Login</button>
+                <button class="btn-nav" onclick="openModal('register')">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-wrapper">
+        <section class="hero-section animate-block">
+            <h1 class="main-title">Smart <br> <span class="thin">Architect</span></h1>
+            <p class="hero-description">Controle financeiro com performance e precisão técnica.</p>
+            <div class="separator-dots"></div>
+        </section>
+    </main>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-card" id="loginModal">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" required placeholder="seu@email.com">
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <div class="password-field">
+                        <input type="password" name="password" id="loginPass" required placeholder="••••••••">
+                        <i class="fa-solid fa-eye toggle-eye" onclick="togglePass('loginPass', this)"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
+            </form>
+        </div>
+
+        <div class="modal-card" id="registerModal">
+            <div class="modal-header">
+                <h2>Register</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="registerForm">
+                <div class="input-group">
+                    <label>Nome</label>
+                    <input type="text" name="name" required placeholder="Seu nome">
+                </div>
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" name="email" required placeholder="seu@email.com">
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <div class="password-field">
+                        <input type="password" name="password" id="regPass" required placeholder="••••••••">
+                        <i class="fa-solid fa-eye toggle-eye" onclick="togglePass('regPass', this)"></i>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Confirmar Senha</label>
+                    <div class="password-field">
+                        <input type="password" id="regPassConfirm" required placeholder="••••••••">
+                        <i class="fa-solid fa-eye toggle-eye" onclick="togglePass('regPassConfirm', this)"></i>
+                    </div>
+                    <span id="matchMessage" class="val-msg"></span>
+                </div>
+                <button type="submit" class="btn-submit">Registrar</button>
+            </form>
+        </div>
+    </div>
+<div id="toast-container"></div>
+    <script src="js/home.js"></script>
+    
+</body>
+</html>

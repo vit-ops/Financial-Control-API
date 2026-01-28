@@ -1,0 +1,28 @@
+{
+  "name": "financial-control-api",
+  "version": "1.0.0",
+  "description": "Simple financial control API",
+  "homepage": "https://github.com/vit-ops/Financial-Control-API#readme",
+  "bugs": {
+    "url": "https://github.com/vit-ops/Financial-Control-API/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vit-ops/Financial-Control-API.git"
+  },
+  "license": "MIT",
+  "author": "Victor Augusto Gonçalves Valério",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.3",
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "firebase-admin": "^13.6.0"
+  }
+}

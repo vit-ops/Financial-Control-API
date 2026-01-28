@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%=user.name%></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">
+                <div class="currency-symbol">$</div>
+                <span class="logo-text">FINANCIAL.CONTROL</span>
+            </div>
+            <div class="nav-links">
+                <span class="user-welcome">Olá, <strong><%=user.name%></strong></span>
+                <button class="btn-icon-nav" onclick="openSettings()"><i class="fa-solid fa-user-gear"></i></button>
+                <a href="/logout" class="btn-logout">Sair</a>
+            </div>
+        </div>
+    </nav>
+<main class="main-wrapper">
+    <header class="dashboard-header animate-block">
+        <div class="header-flex">
+            <div>
+                <h1 class="main-title">Seu <br> <span class="thin">Workspace</span></h1>
+                <p class="hero-description">Gerencie suas coleções e dados financeiros abaixo.</p>
+            </div>
+            <button class="btn-add-col" onclick="openCreateModal()">
+                <i class="fa-solid fa-plus"></i> Nova Coleção
+            </button>
+        </div>
+        <div class="separator-dots"></div>
+    </header>
+
+    <section class="collections-grid animate-block">
+        <% Object.keys(collections).forEach(colName => { %>
+            <div class="col-card" id="card-<%= colName %>">
+                <div class="col-icon">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <div class="col-info">
+                    <h3><%= colName %></h3>
+                    <p><%= collections[colName].length - 1 %> registros</p>
+                </div><div class="col-actions">
+    <a target="_blank" href="docs/get/collection/<%= encodeURIComponent(colName) %>" class="btn-view">Ver</a>
+    
+    <button class="btn-edit" onclick="openRenameModal('<%= colName %>')" title="Renomear Coleção">
+        <i class="fa-solid fa-pen"></i>
+    </button>
+
+    <button class="btn-delete" onclick="deleteCollection('<%= colName %>')" title="Excluir Coleção">
+        <i class="fa-solid fa-trash-can"></i>
+    </button>
+</div>
+            </div>
+        <% }); %>
+        
+        <% if (Object.keys(collections).length === 0) { %>
+            <div class="empty-state">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>Nenhuma coleção encontrada.</p>
+            </div>
+        <% } %>
+    </section>
+</main><div class="modal-overlay" id="settingsOverlay">
+    <div class="modal-card profile-modal">
+        <div class="modal-header">
+            <h2><i class="fa-solid fa-id-card"></i> Meu Perfil</h2>
+            <button class="close-btn" onclick="closeModal('settingsOverlay')">&times;</button>
+        </div>
+
+        <div class="profile-section">
+            <div class="user-avatar" id="userAvatar">
+                </div>
+            <div class="user-details">
+                <h3 id="displayUserName"><%= user.name %></h3>
+                <p id="displayUserEmail"><%= user.email %></p>
+            </div>
+        </div>
+
+        <div class="separator-dots"></div>
+
+        <div class="profile-info-grid">
+            <div class="info-item">
+                <label>Status da Conta</label>
+                <span>Ativa</span>
+            </div>
+        </div>
+        
+        <button class="btn-submit" style="margin-top: 20px;" onclick="closeModal('settingsOverlay')">
+            Fechar
+        </button>
+    </div>
+</div>
+
+
+    <div class="modal-overlay" id="createColOverlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2>Nova Coleção</h2>
+                <button class="close-btn" onclick="closeCreateModal()">&times;</button>
+            </div>
+            <form id="createColForm">
+                <div class="input-group">
+                    <label>Nome da Coleção</label>
+                    <input type="text" id="newColName" required placeholder="Ex: despesas_viagem" autocomplete="off">
+                </div>
+                <button type="submit" class="btn-submit">Criar</button>
+            </form>
+        </div>
+    </div>
+<div class="modal-overlay" id="deleteConfirmOverlay">
+    <div class="modal-card confirmation-modal">
+        <div class="modal-header">
+            <h2>Excluir Coleção</h2>
+            <button class="close-btn" onclick="closeModal('deleteConfirmOverlay')">&times;</button>
+        </div>
+        
+        <div class="modal-content">
+            <p class="confirm-text">Deseja remover <strong><span id="deleteColNameDisplay"></span></strong>?</p>
+            <p class="confirm-subtext">Os dados serão apagados permanentemente do seu workspace.</p>
+        </div>
+
+        <div class="modal-actions-grid">
+            <button class="btn-cancel" onclick="closeModal('deleteConfirmOverlay')">Agora não</button>
+            <button id="confirmDeleteBtn" class="btn-confirm-action">Confirmar Exclusão</button>
+        </div>
+    </div>
+</div>
+<div class="modal-overlay" id="renameColOverlay">
+    <div class="modal-card">
+        <div class="modal-header">
+            <h2>Renomear Coleção</h2>
+            <button class="close-btn" onclick="closeModal('renameColOverlay')">&times;</button>
+        </div>
+        <form id="renameColForm">
+            <div class="input-group">
+                <label>Novo Nome para <span id="oldColNameDisplay" style="text-transform: none; color: var(--accent);"></span></label>
+                <input type="text" id="editColNameInput" required placeholder="Ex: novas_despesas" autocomplete="off">
+            </div>
+            <button type="submit" class="btn-submit">Salvar Alteração</button>
+        </form>
+    </div>
+</div>
+    <div id="toast-container"></div>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

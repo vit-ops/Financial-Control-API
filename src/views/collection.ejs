@@ -1,0 +1,9 @@
+<ul>
+  <% docs.forEach(doc => { %>
+    <% if (doc.id !== "metadados") { %>
+      <li>
+        <%= doc.id %> - <%= doc.name %>
+      </li>
+    <% } %>
+  <% }) %>
+</ul>
