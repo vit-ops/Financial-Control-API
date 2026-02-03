@@ -3,7 +3,7 @@ import { auth, db , SaveToken} from "../utils/db.js";
 export async function Login(req, res, next) {
 
   const { email, password } = req.body;
-
+  console.log("LOGIN BODY:", req.body);
   try {
     const userRecord = await auth.getUserByEmail(email);
     const userDoc = await db.collection("users").doc(userRecord.uid).get();
