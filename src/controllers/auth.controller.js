@@ -37,7 +37,9 @@ export async function Login(req, res, next) {
       success: false,
       message: "Não foi possível fazer login."
     });
+
   }
+
 }
 
 export async function Register(req, res, next) {

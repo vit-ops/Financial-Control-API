@@ -17,8 +17,8 @@ export const db = admin.firestore();
 export function SaveToken(res, value) {
   res.cookie("session", value, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: true,          
+    sameSite: "none",      
     maxAge: 1000 * 60 * 60 * 24,
     path: "/"
   });
